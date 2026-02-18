@@ -1,0 +1,26 @@
+﻿<Page x:Class="WpfApp1.ProfilePage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      Title="Профиль">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <StackPanel>
+            <TextBlock Name="TxtName" FontSize="20"/>
+            <Button Content="Выход" Click="BtnLogout_Click" HorizontalAlignment="Left"/>
+        </StackPanel>
+
+        <DataGrid Name="GridTickets" Grid.Row="1" AutoGenerateColumns="False" IsReadOnly="True">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Фильм" Binding="{Binding Sessions.Movies.Title}"/>
+                <DataGridTextColumn Header="Дата" Binding="{Binding Sessions.DateTime}"/>
+                <DataGridTextColumn Header="Место" Binding="{Binding SeatNumber}"/>
+                <DataGridTextColumn Header="Цена" Binding="{Binding Price}"/>
+            </DataGrid.Columns>
+        </DataGrid>
+    </Grid>
+</Page>

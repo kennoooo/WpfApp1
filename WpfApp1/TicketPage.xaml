@@ -1,0 +1,39 @@
+﻿<Page x:Class="WpfApp1.TicketPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      Title="Оформление билета">
+
+    <Grid>
+        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Width="300">
+            <TextBlock Text="Оформление билета" FontSize="20" FontWeight="Bold" Margin="0,0,0,20" HorizontalAlignment="Center"/>
+
+            <StackPanel Orientation="Horizontal" Margin="0,5">
+                <TextBlock Text="Фильм: " FontWeight="Bold"/>
+                <TextBlock x:Name="TxtMovieTitle" Text="Название"/>
+            </StackPanel>
+
+            <StackPanel Orientation="Horizontal" Margin="0,5">
+                <TextBlock Text="Зал: " FontWeight="Bold"/>
+                <TextBlock x:Name="TxtHall" Text="Номер"/>
+            </StackPanel>
+
+            <StackPanel Orientation="Horizontal" Margin="0,5">
+                <TextBlock Text="Дата и время: " FontWeight="Bold"/>
+                <TextBlock x:Name="TxtDateTime" Text="00:00"/>
+            </StackPanel>
+
+            <StackPanel Orientation="Horizontal" Margin="0,5">
+                <TextBlock Text="Ваше место: " FontWeight="Bold"/>
+                <TextBlock x:Name="TxtSeat" Text="0" Foreground="Black"/>
+            </StackPanel>
+
+            <StackPanel Orientation="Horizontal" Margin="0,15">
+                <TextBlock Text="Цена: " FontWeight="Bold" FontSize="16"/>
+                <TextBlock x:Name="TxtPrice" Text="300" FontSize="16" Foreground="Black"/>
+                <TextBlock Text=" руб." FontSize="16" Foreground="Black"/>
+            </StackPanel>
+
+            <Button Content="Подтвердить покупку" Click="BtnConfirm_Click" Height="35" Margin="0,5"/>
+        </StackPanel>
+    </Grid>
+</Page>
