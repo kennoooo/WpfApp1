@@ -15,9 +15,7 @@ using System.Windows.Shapes;
 
 namespace WpfApp1
 {
-    /// <summary>
-    /// Логика взаимодействия для ProfilePage.xaml
-    /// </summary>
+
     public partial class ProfilePage : Page
     {
         public ProfilePage()
@@ -25,7 +23,6 @@ namespace WpfApp1
             InitializeComponent();
             TxtName.Text = $"Привет, {Core.CurrentUser.Name}!";
 
-            // Загружаем билеты текущего пользователя
             GridTickets.ItemsSource = Core.DB.Tickets
                                         .Where(t => t.UserId == Core.CurrentUser.Id)
                                         .ToList();

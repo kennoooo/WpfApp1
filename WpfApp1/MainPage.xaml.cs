@@ -27,14 +27,14 @@ namespace WpfApp1
         {
             var movies = Core.DB.Movies.ToList();
 
-            // Поиск
+
             if (!string.IsNullOrWhiteSpace(SearchBox.Text))
                 movies = movies.Where(m => m.Title.ToLower().Contains(SearchBox.Text.ToLower())).ToList();
 
-            // Сортировка
-            if (SortBox.SelectedIndex == 1) // По названию
+
+            if (SortBox.SelectedIndex == 1)
                 movies = movies.OrderBy(m => m.Title).ToList();
-            else if (SortBox.SelectedIndex == 2) // По рейтингу
+            else if (SortBox.SelectedIndex == 2)
                 movies = movies.OrderByDescending(m => m.Rating).ToList();
 
             MoviesList.ItemsSource = movies;

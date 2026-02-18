@@ -20,26 +20,25 @@ namespace WpfApp1
         private void LoadSeats()
         {
             SeatsContainer.Children.Clear();
-            // Получаем список занятых мест (номера)
+
             var takenSeats = Core.DB.Tickets.Where(t => t.SessionId == _session.Id).Select(t => t.SeatNumber).ToList();
 
-            // Создаем 50 мест (5 рядов по 10)
             for (int i = 1; i <= 50; i++)
             {
                 Button btn = new Button();
                 btn.Content = i.ToString();
                 btn.Margin = new Thickness(2);
-                btn.Tag = i; // Храним номер места в Tag
+                btn.Tag = i; 
                 btn.Click += Seat_Click;
 
                 if (takenSeats.Contains(i))
                 {
                     btn.IsEnabled = false;
-                    btn.Background = Brushes.Red; // Занято
+                    btn.Background = Brushes.Red;
                 }
                 else
                 {
-                    btn.Background = Brushes.LightGreen; // Свободно
+                    btn.Background = Brushes.LightGreen; 
                 }
 
                 SeatsContainer.Children.Add(btn);
@@ -66,7 +65,7 @@ namespace WpfApp1
                 MessageBox.Show("Выберите место!");
                 return;
             }
-            // Переход на страницу оформления
+
             NavigationService.Navigate(new TicketPage(_session, _selectedSeat));
         }
     }

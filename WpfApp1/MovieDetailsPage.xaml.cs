@@ -15,9 +15,7 @@ using System.Windows.Shapes;
 
 namespace WpfApp1
 {
-    /// <summary>
-    /// Логика взаимодействия для MovieDetailsPage.xaml
-    /// </summary>
+
     public partial class MovieDetailsPage : Page
     {
         Movies _movie;
@@ -25,13 +23,13 @@ namespace WpfApp1
         {
             InitializeComponent();
             _movie = movie;
-            DataContext = _movie; // Привязка к полям (упрощенная)
+            DataContext = _movie; 
 
             TxtTitle.Text = _movie.Title;
             TxtDesc.Text = _movie.Description;
             TxtRating.Text = _movie.Rating.ToString();
 
-            // Загружаем сеансы только этого фильма
+
             SessionsList.ItemsSource = Core.DB.Sessions.Where(s => s.MovieId == _movie.Id).ToList();
         }
 

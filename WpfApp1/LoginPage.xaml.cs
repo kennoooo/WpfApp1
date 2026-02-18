@@ -14,7 +14,7 @@ namespace WpfApp1
 
         private void BtnLogin_Click(object sender, RoutedEventArgs e)
         {
-            // Теперь TxtLogin и TxtPass будут видны коду
+
             var user = Core.DB.Users.FirstOrDefault(u => u.Login == TxtLogin.Text && u.Password == TxtPass.Password);
 
             if (user != null)

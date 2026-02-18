@@ -1,52 +1,62 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
+
 
 namespace WpfApp1
 {
-    /// <summary>
-    /// Логика взаимодействия для TicketPage.xaml
-    /// </summary>
     public partial class TicketPage : Page
     {
-        Sessions _session;
-        int _seat;
-        decimal _price = 300; 
+
+        private Sessions _currentSession;
+        private int _selectedSeat;
+        private decimal _price = 300; 
 
         public TicketPage(Sessions session, int seat)
         {
             InitializeComponent();
-            _session = session;
-            _seat = seat;
 
+            _currentSession = session;
+            _selectedSeat = seat;
+
+            TxtMovieTitle.Text = _currentSession.Movies.Title;
+            TxtHall.Text = _currentSession.Halls.Name + " (" + _currentSession.Halls.Category + ")";
+            TxtDateTime.Text = _currentSession.DateTime.Value.ToString("dd.MM.yyyy");
+            TxtSeat.Text = _selectedSeat.ToString();
+            TxtPrice.Text = _price.ToString();
         }
+
 
         private void BtnConfirm_Click(object sender, RoutedEventArgs e)
         {
-            Tickets newTicket = new Tickets
+            try
             {
-                SessionId = _session.Id,
-                UserId = Core.CurrentUser.Id,
-                SeatNumber = _seat,
-                Price = _price
-            };
 
-            Core.DB.Tickets.Add(newTicket);
-            Core.DB.SaveChanges();
+                Tickets newTicket = new Tickets
+                {
+                    SessionId = _currentSession.Id,
+                    UserId = Core.CurrentUser.Id,
+                    SeatNumber = _selectedSeat,
+                    Price = _price
+                };
 
-            MessageBox.Show("Билет куплен!");
-            NavigationService.Navigate(new MainPage());
+                Core.DB.Tickets.Add(newTicket);
+                Core.DB.SaveChanges();
+
+                MessageBox.Show("Билет успешно куплен!");
+
+                NavigationService.Navigate(new MainPage());
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Ошибка при оформлении: " + ex.Message);
+            }
+        }
+
+        private void BtnCancel_Click(object sender, RoutedEventArgs e)
+        {
+            NavigationService.GoBack();
         }
     }
 }
