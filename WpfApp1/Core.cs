@@ -9,7 +9,7 @@ namespace WpfApp1
     internal class Core
     {
         // Контекст базы данных (название CinemaDBEntities может отличаться, проверь в Model.Context.cs)
-        public static CinemaDBPR14Entities DB = new CinemaDBPR14Entities();
+        public static CinemaDBPR14Entities1 DB = new CinemaDBPR14Entities1();
 
         // Хранение текущего авторизованного пользователя
         public static Users CurrentUser;

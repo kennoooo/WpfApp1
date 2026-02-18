@@ -28,6 +28,8 @@ namespace WpfApp1
             TxtTitle.Text = _movie.Title;
             TxtDesc.Text = _movie.Description;
             TxtRating.Text = _movie.Rating.ToString();
+            TxtGenre.Text = _movie.Genre.ToString();
+            ImgMovie.Source = new System.Windows.Media.Imaging.BitmapImage(new Uri(_movie.ImagePath));
 
 
             SessionsList.ItemsSource = Core.DB.Sessions.Where(s => s.MovieId == _movie.Id).ToList();

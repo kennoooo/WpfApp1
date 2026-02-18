@@ -46,10 +46,10 @@
                     <Border BorderBrush="Gray" BorderThickness="1" Margin="5" Width="200" Height="300">
                         <StackPanel>
                             <Image Source="{Binding ImagePath}" Height="150" Stretch="UniformToFill"/>
-                            <TextBlock Text="{Binding Title}" FontWeight="Bold" Margin="5"/>
-                            <TextBlock Text="{Binding Rating, StringFormat='Рейтинг: {0}'}" Margin="5"/>
-                            <TextBlock Text="{Binding AgeRating, StringFormat='.{0}+'}" Foreground="Red" Margin="5"/>
-                            <TextBlock Text="{Binding StartDate, StringFormat='d'}" Margin="5"/>
+                            <TextBlock Text="{Binding Title}" FontWeight="Bold" Margin="5,5,5,0"/>
+                            <TextBlock Text="{Binding Genre}" Foreground="Black" Margin="5,0,5,5" FontSize="10"/>
+                            <TextBlock Text="{Binding Rating, StringFormat='Рейтинг: {0}'}" Margin="5,0"/>
+                            <TextBlock Text="{Binding AgeRating, StringFormat='.{0}+'}" Foreground="Red" Margin="5,0"/>
                         </StackPanel>
                     </Border>
                 </DataTemplate>

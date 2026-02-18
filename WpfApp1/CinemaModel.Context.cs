@@ -13,10 +13,10 @@ namespace WpfApp1
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class CinemaDBPR14Entities : DbContext
+    public partial class CinemaDBPR14Entities1 : DbContext
     {
-        public CinemaDBPR14Entities()
-            : base("name=CinemaDBPR14Entities")
+        public CinemaDBPR14Entities1()
+            : base("name=CinemaDBPR14Entities1")
         {
         }
     

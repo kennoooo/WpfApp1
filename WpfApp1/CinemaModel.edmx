@@ -24,6 +24,7 @@
           <Property Name="Rating" Type="float" />
           <Property Name="AgeRating" Type="int" />
           <Property Name="StartDate" Type="datetime" />
+          <Property Name="Genre" Type="nvarchar" MaxLength="100" />
         </EntityType>
         <EntityType Name="Sessions">
           <Key>
@@ -149,6 +150,7 @@
           <Property Name="Rating" Type="Double" />
           <Property Name="AgeRating" Type="Int32" />
           <Property Name="StartDate" Type="DateTime" Precision="3" />
+          <Property Name="Genre" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Sessions" Relationship="Self.FK__Sessions__MovieI__5165187F" FromRole="Movies" ToRole="Sessions" />
         </EntityType>
         <EntityType Name="Sessions">
@@ -233,7 +235,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="CinemaDBPR14Entities" annotation:LazyLoadingEnabled="true">
+        <EntityContainer Name="CinemaDBPR14Entities1" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Halls" EntityType="Self.Halls" />
           <EntitySet Name="Movies" EntityType="Self.Movies" />
           <EntitySet Name="Sessions" EntityType="Self.Sessions" />
@@ -261,7 +263,7 @@
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="Хранилище CinemaDBPR14ModelContainer" CdmEntityContainer="CinemaDBPR14Entities">
+        <EntityContainerMapping StorageEntityContainer="Хранилище CinemaDBPR14ModelContainer" CdmEntityContainer="CinemaDBPR14Entities1">
           <EntitySetMapping Name="Halls">
             <EntityTypeMapping TypeName="CinemaDBPR14Model.Halls">
               <MappingFragment StoreEntitySet="Halls">
@@ -281,6 +283,7 @@
                 <ScalarProperty Name="Rating" ColumnName="Rating" />
                 <ScalarProperty Name="AgeRating" ColumnName="AgeRating" />
                 <ScalarProperty Name="StartDate" ColumnName="StartDate" />
+                <ScalarProperty Name="Genre" ColumnName="Genre" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
