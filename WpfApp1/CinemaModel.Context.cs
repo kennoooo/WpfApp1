@@ -13,10 +13,10 @@ namespace WpfApp1
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class CinemaDBPR14Entities1 : DbContext
+    public partial class CinemaDBPR14Entities4 : DbContext
     {
-        public CinemaDBPR14Entities1()
-            : base("name=CinemaDBPR14Entities1")
+        public CinemaDBPR14Entities4()
+            : base("name=CinemaDBPR14Entities4")
         {
         }
     
@@ -25,9 +25,12 @@ namespace WpfApp1
             throw new UnintentionalCodeFirstException();
         }
     
+        public virtual DbSet<Genres> Genres { get; set; }
         public virtual DbSet<Halls> Halls { get; set; }
         public virtual DbSet<Movies> Movies { get; set; }
+        public virtual DbSet<MoviesGenres> MoviesGenres { get; set; }
         public virtual DbSet<Sessions> Sessions { get; set; }
+        public virtual DbSet<sysdiagrams> sysdiagrams { get; set; }
         public virtual DbSet<Tickets> Tickets { get; set; }
         public virtual DbSet<Users> Users { get; set; }
     }

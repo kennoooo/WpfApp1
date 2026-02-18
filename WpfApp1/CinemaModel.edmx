@@ -5,6 +5,13 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
       <Schema Namespace="Хранилище CinemaDBPR14Model" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Genres">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="Genre" Type="nvarchar" MaxLength="50" />
+        </EntityType>
         <EntityType Name="Halls">
           <Key>
             <PropertyRef Name="Id" />
@@ -24,7 +31,14 @@
           <Property Name="Rating" Type="float" />
           <Property Name="AgeRating" Type="int" />
           <Property Name="StartDate" Type="datetime" />
-          <Property Name="Genre" Type="nvarchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="MoviesGenres">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="GenreID" Type="int" Nullable="false" />
+          <Property Name="MovieID" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="Sessions">
           <Key>
@@ -34,6 +48,16 @@
           <Property Name="MovieId" Type="int" />
           <Property Name="HallId" Type="int" />
           <Property Name="DateTime" Type="datetime" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
         </EntityType>
         <EntityType Name="Tickets">
           <Key>
@@ -102,10 +126,37 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_MoviesGenres_Genres">
+          <End Role="Genres" Type="Self.Genres" Multiplicity="1" />
+          <End Role="MoviesGenres" Type="Self.MoviesGenres" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Genres">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="MoviesGenres">
+              <PropertyRef Name="GenreID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MoviesGenres_Movies">
+          <End Role="Movies" Type="Self.Movies" Multiplicity="1" />
+          <End Role="MoviesGenres" Type="Self.MoviesGenres" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Movies">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="MoviesGenres">
+              <PropertyRef Name="MovieID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="Хранилище CinemaDBPR14ModelContainer">
+          <EntitySet Name="Genres" EntityType="Self.Genres" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Halls" EntityType="Self.Halls" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Movies" EntityType="Self.Movies" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="MoviesGenres" EntityType="Self.MoviesGenres" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Sessions" EntityType="Self.Sessions" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Tickets" EntityType="Self.Tickets" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK__Sessions__HallId__52593CB8" Association="Self.FK__Sessions__HallId__52593CB8">
@@ -124,12 +175,28 @@
             <End Role="Users" EntitySet="Users" />
             <End Role="Tickets" EntitySet="Tickets" />
           </AssociationSet>
+          <AssociationSet Name="FK_MoviesGenres_Genres" Association="Self.FK_MoviesGenres_Genres">
+            <End Role="Genres" EntitySet="Genres" />
+            <End Role="MoviesGenres" EntitySet="MoviesGenres" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MoviesGenres_Movies" Association="Self.FK_MoviesGenres_Movies">
+            <End Role="Movies" EntitySet="Movies" />
+            <End Role="MoviesGenres" EntitySet="MoviesGenres" />
+          </AssociationSet>
         </EntityContainer>
       </Schema>
     </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="CinemaDBPR14Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Genres">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="Genre" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="MoviesGenres" Relationship="Self.FK_MoviesGenres_Genres" FromRole="Genres" ToRole="MoviesGenres" />
+        </EntityType>
         <EntityType Name="Halls">
           <Key>
             <PropertyRef Name="Id" />
@@ -150,8 +217,18 @@
           <Property Name="Rating" Type="Double" />
           <Property Name="AgeRating" Type="Int32" />
           <Property Name="StartDate" Type="DateTime" Precision="3" />
-          <Property Name="Genre" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Sessions" Relationship="Self.FK__Sessions__MovieI__5165187F" FromRole="Movies" ToRole="Sessions" />
+          <NavigationProperty Name="MoviesGenres" Relationship="Self.FK_MoviesGenres_Movies" FromRole="Movies" ToRole="MoviesGenres" />
+        </EntityType>
+        <EntityType Name="MoviesGenres">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="GenreID" Type="Int32" Nullable="false" />
+          <Property Name="MovieID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Genres" Relationship="Self.FK_MoviesGenres_Genres" FromRole="MoviesGenres" ToRole="Genres" />
+          <NavigationProperty Name="Movies" Relationship="Self.FK_MoviesGenres_Movies" FromRole="MoviesGenres" ToRole="Movies" />
         </EntityType>
         <EntityType Name="Sessions">
           <Key>
@@ -164,6 +241,16 @@
           <NavigationProperty Name="Halls" Relationship="Self.FK__Sessions__HallId__52593CB8" FromRole="Sessions" ToRole="Halls" />
           <NavigationProperty Name="Movies" Relationship="Self.FK__Sessions__MovieI__5165187F" FromRole="Sessions" ToRole="Movies" />
           <NavigationProperty Name="Tickets" Relationship="Self.FK__Tickets__Session__5535A963" FromRole="Sessions" ToRole="Tickets" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
         </EntityType>
         <EntityType Name="Tickets">
           <Key>
@@ -187,6 +274,18 @@
           <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Tickets" Relationship="Self.FK__Tickets__UserId__5629CD9C" FromRole="Users" ToRole="Tickets" />
         </EntityType>
+        <Association Name="FK_MoviesGenres_Genres">
+          <End Role="Genres" Type="Self.Genres" Multiplicity="1" />
+          <End Role="MoviesGenres" Type="Self.MoviesGenres" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Genres">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="MoviesGenres">
+              <PropertyRef Name="GenreID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK__Sessions__HallId__52593CB8">
           <End Role="Halls" Type="Self.Halls" Multiplicity="0..1" />
           <End Role="Sessions" Type="Self.Sessions" Multiplicity="*" />
@@ -208,6 +307,18 @@
             </Principal>
             <Dependent Role="Sessions">
               <PropertyRef Name="MovieId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MoviesGenres_Movies">
+          <End Role="Movies" Type="Self.Movies" Multiplicity="1" />
+          <End Role="MoviesGenres" Type="Self.MoviesGenres" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Movies">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="MoviesGenres">
+              <PropertyRef Name="MovieID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -235,12 +346,19 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="CinemaDBPR14Entities1" annotation:LazyLoadingEnabled="true">
+        <EntityContainer Name="CinemaDBPR14Entities4" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Genres" EntityType="Self.Genres" />
           <EntitySet Name="Halls" EntityType="Self.Halls" />
           <EntitySet Name="Movies" EntityType="Self.Movies" />
+          <EntitySet Name="MoviesGenres" EntityType="Self.MoviesGenres" />
           <EntitySet Name="Sessions" EntityType="Self.Sessions" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
           <EntitySet Name="Tickets" EntityType="Self.Tickets" />
           <EntitySet Name="Users" EntityType="Self.Users" />
+          <AssociationSet Name="FK_MoviesGenres_Genres" Association="Self.FK_MoviesGenres_Genres">
+            <End Role="Genres" EntitySet="Genres" />
+            <End Role="MoviesGenres" EntitySet="MoviesGenres" />
+          </AssociationSet>
           <AssociationSet Name="FK__Sessions__HallId__52593CB8" Association="Self.FK__Sessions__HallId__52593CB8">
             <End Role="Halls" EntitySet="Halls" />
             <End Role="Sessions" EntitySet="Sessions" />
@@ -248,6 +366,10 @@
           <AssociationSet Name="FK__Sessions__MovieI__5165187F" Association="Self.FK__Sessions__MovieI__5165187F">
             <End Role="Movies" EntitySet="Movies" />
             <End Role="Sessions" EntitySet="Sessions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MoviesGenres_Movies" Association="Self.FK_MoviesGenres_Movies">
+            <End Role="Movies" EntitySet="Movies" />
+            <End Role="MoviesGenres" EntitySet="MoviesGenres" />
           </AssociationSet>
           <AssociationSet Name="FK__Tickets__Session__5535A963" Association="Self.FK__Tickets__Session__5535A963">
             <End Role="Sessions" EntitySet="Sessions" />
@@ -263,7 +385,15 @@
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="Хранилище CinemaDBPR14ModelContainer" CdmEntityContainer="CinemaDBPR14Entities1">
+        <EntityContainerMapping StorageEntityContainer="Хранилище CinemaDBPR14ModelContainer" CdmEntityContainer="CinemaDBPR14Entities4">
+          <EntitySetMapping Name="Genres">
+            <EntityTypeMapping TypeName="CinemaDBPR14Model.Genres">
+              <MappingFragment StoreEntitySet="Genres">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Genre" ColumnName="Genre" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="Halls">
             <EntityTypeMapping TypeName="CinemaDBPR14Model.Halls">
               <MappingFragment StoreEntitySet="Halls">
@@ -283,7 +413,15 @@
                 <ScalarProperty Name="Rating" ColumnName="Rating" />
                 <ScalarProperty Name="AgeRating" ColumnName="AgeRating" />
                 <ScalarProperty Name="StartDate" ColumnName="StartDate" />
-                <ScalarProperty Name="Genre" ColumnName="Genre" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MoviesGenres">
+            <EntityTypeMapping TypeName="CinemaDBPR14Model.MoviesGenres">
+              <MappingFragment StoreEntitySet="MoviesGenres">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="GenreID" ColumnName="GenreID" />
+                <ScalarProperty Name="MovieID" ColumnName="MovieID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -294,6 +432,17 @@
                 <ScalarProperty Name="MovieId" ColumnName="MovieId" />
                 <ScalarProperty Name="HallId" ColumnName="HallId" />
                 <ScalarProperty Name="DateTime" ColumnName="DateTime" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="CinemaDBPR14Model.sysdiagrams">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

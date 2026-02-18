@@ -25,8 +25,7 @@ namespace WpfApp1
 
         private void UpdateData()
         {
-            var movies = Core.DB.Movies.ToList();
-
+            var movies = Core.DB.Movies.Include("MoviesGenres.Genres").ToList();
 
             if (!string.IsNullOrWhiteSpace(SearchBox.Text))
                 movies = movies.Where(m => m.Title.ToLower().Contains(SearchBox.Text.ToLower())).ToList();

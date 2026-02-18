@@ -83,6 +83,9 @@
       <DependentUpon>CinemaModel.edmx</DependentUpon>
     </Compile>
     <Compile Include="Core.cs" />
+    <Compile Include="Genres.cs">
+      <DependentUpon>CinemaModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Halls.cs">
       <DependentUpon>CinemaModel.tt</DependentUpon>
     </Compile>
@@ -98,6 +101,9 @@
     <Compile Include="Movies.cs">
       <DependentUpon>CinemaModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="MoviesGenres.cs">
+      <DependentUpon>CinemaModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="ProfilePage.xaml.cs">
       <DependentUpon>ProfilePage.xaml</DependentUpon>
     </Compile>
@@ -108,6 +114,9 @@
       <DependentUpon>SessionPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Sessions.cs">
+      <DependentUpon>CinemaModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="sysdiagrams.cs">
       <DependentUpon>CinemaModel.tt</DependentUpon>
     </Compile>
     <Compile Include="TicketPage.xaml.cs">

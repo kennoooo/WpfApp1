@@ -19,19 +19,25 @@ namespace WpfApp1
     public partial class MovieDetailsPage : Page
     {
         Movies _movie;
-        public MovieDetailsPage(Movies movie)
+
+
+        public MovieDetailsPage(Movies selectedMovie)
         {
+            var genreNames = selectedMovie.MoviesGenres
+            .Select(mg => mg.Genres.Genre)
+            .ToList();
+
             InitializeComponent();
-            _movie = movie;
-            DataContext = _movie; 
+            _movie = selectedMovie;
+            DataContext = _movie;
+
 
             TxtTitle.Text = _movie.Title;
             TxtDesc.Text = _movie.Description;
             TxtRating.Text = _movie.Rating.ToString();
-            TxtGenre.Text = _movie.Genre.ToString();
+
             ImgMovie.Source = new System.Windows.Media.Imaging.BitmapImage(new Uri(_movie.ImagePath));
-
-
+            TxtGenre.Text = string.Join(", ", genreNames);
             SessionsList.ItemsSource = Core.DB.Sessions.Where(s => s.MovieId == _movie.Id).ToList();
         }
 

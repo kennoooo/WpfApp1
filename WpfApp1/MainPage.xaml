@@ -47,9 +47,20 @@
                         <StackPanel>
                             <Image Source="{Binding ImagePath}" Height="150" Stretch="UniformToFill"/>
                             <TextBlock Text="{Binding Title}" FontWeight="Bold" Margin="5,5,5,0"/>
-                            <TextBlock Text="{Binding Genre}" Foreground="Black" Margin="5,0,5,5" FontSize="10"/>
                             <TextBlock Text="{Binding Rating, StringFormat='Рейтинг: {0}'}" Margin="5,0"/>
-                            <TextBlock Text="{Binding AgeRating, StringFormat='.{0}+'}" Foreground="Red" Margin="5,0"/>
+                            <TextBlock Text="{Binding AgeRating, StringFormat='Возраст: {0}+'}" Foreground="Black" Margin="5,0"/>
+                            <ItemsControl ItemsSource="{Binding MoviesGenres}">
+                                <ItemsControl.ItemsPanel>
+                                    <ItemsPanelTemplate>
+                                        <WrapPanel Orientation="Horizontal"/>
+                                    </ItemsPanelTemplate>
+                                </ItemsControl.ItemsPanel>
+                                <ItemsControl.ItemTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding Genres.Genre, StringFormat='{}{0}, '}" FontSize="10"  Foreground="Black"/>
+                                    </DataTemplate>
+                                </ItemsControl.ItemTemplate>
+                            </ItemsControl>
                         </StackPanel>
                     </Border>
                 </DataTemplate>

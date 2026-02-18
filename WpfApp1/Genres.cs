@@ -12,25 +12,17 @@ namespace WpfApp1
     using System;
     using System.Collections.Generic;
     
-    public partial class Movies
+    public partial class Genres
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Movies()
+        public Genres()
         {
-            this.Sessions = new HashSet<Sessions>();
             this.MoviesGenres = new HashSet<MoviesGenres>();
         }
     
-        public int Id { get; set; }
-        public string Title { get; set; }
-        public string Description { get; set; }
-        public string ImagePath { get; set; }
-        public Nullable<double> Rating { get; set; }
-        public Nullable<int> AgeRating { get; set; }
-        public Nullable<System.DateTime> StartDate { get; set; }
+        public int ID { get; set; }
+        public string Genre { get; set; }
     
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Sessions> Sessions { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<MoviesGenres> MoviesGenres { get; set; }
     }

@@ -4,14 +4,19 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="cd29cd67406f4a1d992bb5caa46e05d0" Name="Diagram1">
-        <EntityTypeShape EntityType="CinemaDBPR14Model.Halls" Width="1.5" PointX="0.75" PointY="1.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="CinemaDBPR14Model.Movies" Width="1.5" PointX="0.75" PointY="4.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="CinemaDBPR14Model.Sessions" Width="1.5" PointX="3" PointY="1" IsExpanded="true" />
-        <EntityTypeShape EntityType="CinemaDBPR14Model.Tickets" Width="1.5" PointX="5.25" PointY="1" IsExpanded="true" />
-        <EntityTypeShape EntityType="CinemaDBPR14Model.Users" Width="1.5" PointX="3" PointY="5.125" IsExpanded="true" />
+      <Diagram DiagramId="01917e746b2c4ed7afc1874778886ade" Name="Diagram1">
+        <EntityTypeShape EntityType="CinemaDBPR14Model.Genres" Width="1.5" PointX="4.375" PointY="6" IsExpanded="true" />
+        <EntityTypeShape EntityType="CinemaDBPR14Model.Halls" Width="1.5" PointX="0.75" PointY="7.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="CinemaDBPR14Model.Movies" Width="1.5" PointX="0.75" PointY="3.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="CinemaDBPR14Model.MoviesGenres" Width="1.5" PointX="3" PointY="4" IsExpanded="true" />
+        <EntityTypeShape EntityType="CinemaDBPR14Model.Sessions" Width="1.5" PointX="3" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="CinemaDBPR14Model.sysdiagrams" Width="1.5" PointX="5.75" PointY="4" IsExpanded="true" />
+        <EntityTypeShape EntityType="CinemaDBPR14Model.Tickets" Width="1.5" PointX="5.25" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="CinemaDBPR14Model.Users" Width="1.5" PointX="3" PointY="7.625" IsExpanded="true" />
+        <AssociationConnector Association="CinemaDBPR14Model.FK_MoviesGenres_Genres" ManuallyRouted="false" />
         <AssociationConnector Association="CinemaDBPR14Model.FK__Sessions__HallId__52593CB8" ManuallyRouted="false" />
         <AssociationConnector Association="CinemaDBPR14Model.FK__Sessions__MovieI__5165187F" ManuallyRouted="false" />
+        <AssociationConnector Association="CinemaDBPR14Model.FK_MoviesGenres_Movies" ManuallyRouted="false" />
         <AssociationConnector Association="CinemaDBPR14Model.FK__Tickets__Session__5535A963" ManuallyRouted="false" />
         <AssociationConnector Association="CinemaDBPR14Model.FK__Tickets__UserId__5629CD9C" ManuallyRouted="false" />
       </Diagram>
