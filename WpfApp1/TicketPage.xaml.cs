@@ -22,7 +22,7 @@ namespace WpfApp1
 
             TxtMovieTitle.Text = _currentSession.Movies.Title;
             TxtHall.Text = _currentSession.Halls.Name + " (" + _currentSession.Halls.Category + ")";
-            TxtDateTime.Text = _currentSession.DateTime.Value.ToString("dd.MM.yyyy");
+            TxtDateTime.Text = _currentSession.DateTime.Value.ToString("dd.MM.yyyy HH:mm");
             TxtSeat.Text = _selectedSeat.ToString();
             TxtPrice.Text = _price.ToString();
         }
